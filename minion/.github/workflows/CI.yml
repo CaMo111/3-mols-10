@@ -1,0 +1,167 @@
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  workflow_dispatch:
+    inputs:
+      # see https://github.com/marketplace/actions/debugging-with-tmate
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled'
+        type: boolean
+  pull_request:
+  push:
+  schedule:
+    # Every day at 2:30 AM UTC
+    - cron: '30 2 * * *'
+
+
+
+jobs:
+  test:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        shell: [bash]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Set up Python"
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+
+      - name: "Config"
+        run: |
+                mkdir bin-quick
+                cd bin-quick
+                python3 ../configure.py --quick
+      
+      - name: "Build"
+        run: |
+                cd bin-quick
+                make -j2
+      
+      - name: "First test"
+        run: |
+              cd test_instances
+              bash ./run_tests.sh ../bin-quick/minion
+      
+      - name: "Rust tests"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --minion ../bin-quick/minion
+
+      # Exercises the deep-nested (cross-type parent trees) and
+      # size-factor=2 paths that the default Rust tests step doesn't
+      # touch. Counts kept small to fit the CI budget; this is a smoke
+      # test, not full coverage. Variant-equivalence and restart sweeps
+      # already run inside the default-args sweep above.
+      - name: "Rust tests: nested + size-factor smoke"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --minion ../bin-quick/minion \
+                --count 10 --variant-count 20 --optioncount 100 \
+                --nest-depth 2 --size-factor 2 --numthreads 4
+
+      # minion-sys integration tests (test_work_steal, test_parallel_search,
+      # test_seed_determinism, etc.). These exercise the FFI surface of
+      # libminion via Rust, which the C++ `make test` doesn't cover.
+      - name: "minion-sys cargo test"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd minion-sys
+              cargo test --release
+
+      - name: "Library tests"
+        run: |
+                cd bin-quick
+                make test
+
+      # Debug build: verifies MINION_DEBUG (checked-integer DomainInt,
+      # _GLIBCXX_DEBUG) works for both the binary and the library.
+      - name: "Debug config"
+        run: |
+                mkdir bin-debug
+                cd bin-debug
+                python3 ../configure.py --quick --debug
+
+      - name: "Debug build"
+        run: |
+                cd bin-debug
+                make -j2
+
+      - name: "Debug library tests"
+        run: |
+                cd bin-debug
+                make test
+
+      - name: "Debug basic tests"
+        run: |
+              cd test_instances
+              bash ./run_tests.sh ../bin-debug/minion
+
+      # In-process tester exercises minion-sys (the Rust FFI library
+      # binding), the mid-search injection paths, and the constraint
+      # sweep. Counts are kept small so the whole suite fits in the CI
+      # time budget; --maxtuples bounds the per-run solution cap so
+      # per-thread memory stays under ~1.5 GB (the minion pre-reservation
+      # dominates), times --numthreads.
+      - name: "In-process tester: baseline sweep"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --count 3 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: mid-search add-vars (no constraint on new vars)"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --midsearch --count 5 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: mid-search constraint injection (N=1)"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --midsearch-constraints --count 10 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: mid-search constraint injection (N=2)"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --midsearch-constraints --midsearch-constraints-num-packets 2 --count 5 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: mid-search constraint injection wrapped in nested parent"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --midsearch-constraints --midsearch-wrap-nested --count 5 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: mid-search add-vars + mixed-var constraint"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              cargo run --release -- --in-process --midsearch-add-vars --midsearch-constraints-num-packets 2 --count 30 --numthreads 4 --maxtuples 10000
+
+      # Debug in-process test: rebuilds minion-sys with MINION_DEBUG so
+      # the checked-integer DomainInt wrapper is exercised through the
+      # FFI boundary. Placed last to avoid cargo cache thrashing with the
+      # non-debug in-process steps above.
+      - name: "In-process tester: debug baseline"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              DEBUG_MINION=1 cargo run --release -- --in-process --count 2 --numthreads 4 --maxtuples 10000
+
+      - name: "In-process tester: debug mid-search constraint injection"
+        run: |
+              export PATH=$PATH:$HOME/.cargo/bin
+              cd tester
+              DEBUG_MINION=1 cargo run --release -- --in-process --midsearch-constraints --count 3 --numthreads 4 --maxtuples 10000
