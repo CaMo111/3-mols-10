@@ -1,0 +1,24 @@
+# Minion Version 2
+# Git version: "7a36ad38 (2026-06-03 16:04:21 +0800)"
+#  Run at: UTC Sun Nov  1 09:02:29 2026
+
+# Input filename: ./9/consistent.min
+# Command line: /Users/ncul0004/codezone/3-mols-10/section4/../minion/bin/minion -preprocess GAC -varorder domoverwdeg -findallsols -noprintsols ./9/consistent.min 
+Using seed: 3056640106
+Parsing Time: 0.001503
+Setup Time: 0.000564
+Initial Propagate: 0.000003
+Preprocess Time: 0.000013
+Solve Time: 0.008901
+Total Time: 0.010984
+Total System Time: 0.001163
+Total Wall Time: 0.015290
+Maximum RSS (kB): 5312
+Total Nodes: 444
+Solutions Found: 122
+
+(0, 2, 2, 6, 0, 2, 4, 4, 0, 4, 2, 4, 0, 4, 4, 2, 2, 4, 4, 0)
+R1=22444
+R2=22444
+SYMDIFF=22444
+
