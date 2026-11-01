@@ -1,6 +1,5 @@
 # AUTHOR: Nathan Culshaw
 # PURPOSE: Used to enumerate cases of 5 net, 3 MOLS 10
-
 from collections import Counter, deque 
 from itertools import permutations, product, combinations 
 import copy

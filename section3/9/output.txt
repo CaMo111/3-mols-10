@@ -1,0 +1,288 @@
+# Minion Version 2
+# Git version: "7a36ad38 (2026-06-03 16:04:21 +0800)"
+#  Run at: UTC Sun Nov  1 08:59:28 2026
+
+# Input filename: ./9/consistent.min
+# Command line: /Users/ncul0004/codezone/3-mols-10/section3/../minion/bin/minion -randomseed 19723 -preprocess GAC -varorder domoverwdeg -restarts ./9/consistent.min 
+Using seed: 19723
+Parsing Time: 0.001620
+Setup Time: 0.000607
+Initial Propagate: 0.000002
+Preprocess Time: 0.000016
+Increasing backtrack limit to 15
+Increasing backtrack limit to 22
+Increasing backtrack limit to 33
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 1 
+Sol: 0 
+Sol: 1 
+Sol: 3 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 3 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 1 
+Sol: 4 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 2 
+Sol: 0 
+Sol: 1 
+Sol: 4 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 4 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 2 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 4 
+Sol: 1 
+Sol: 0 
+Sol: 7 
+Sol: 4 
+Sol: 0 
+Sol: 0 
+Sol: 4 
+Sol: 0 
+Sol: 3 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 4 
+Sol: 0 
+Sol: 0 
+Sol: 4 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 2 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 1 
+Sol: 0 
+Sol: 0 
+Sol: 4 
+Sol: 4 
+Sol: 0 
+Sol: 7 
+Sol: 6 
+Sol: 1 
+
+Solution Number: 1
+Time:0.000981
+Nodes: 68
+
+Solve Time: 0.001011
+Total Time: 0.003256
+Total System Time: 0.001837
+Total Wall Time: 0.009251
+Maximum RSS (kB): 5424
+Total Nodes: 68
+Solutions Found: 1
+
+(0, 2, 2, 6, 0, 2, 4, 4, 0, 4, 2, 4, 0, 4, 4, 2, 2, 4, 4, 0)
+R1=22444
+R2=22444
+SYMDIFF=22444
+

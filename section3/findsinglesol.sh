@@ -9,7 +9,7 @@ OUT_DIR="."
 
 LINENUM=$1
 EQ=$(sed -n "${LINENUM}p" "$OUT_DIR/stripped.txt")
-PV=$EQ
+PV=$(echo "$EQ" | tr -d '\r\n')
 echo "EQUIV CLASS=: $EQ"
 
 rm $OUT_DIR/$LINENUM/output.txt
@@ -53,11 +53,11 @@ python3 $PWD/../constraints/orthogonalconstraint.py $globalparam "$PV" >> $OUT_D
 
 echo "**EOF**" >> $OUT_DIR/$LINENUM/consistent.min
 
-$PWD/../upperbound.sh $OUT_DIR/$LINENUM/consistent.min
+$PWD/../constraints/upperbound.sh $OUT_DIR/$LINENUM/consistent.min
 
 source $PWD/opt_env/bin/activate
-python3 $PWD/pulp-bound.py $OUT_DIR/$LINENUM/consistent.min $OUT_DIR/$LINENUM/consistent.min
+python3 $PWD/../constraints/pulp-bound.py $OUT_DIR/$LINENUM/consistent.min $OUT_DIR/$LINENUM/consistent.min
 
-$PWD/../minion/bin/minion -preprocess GAC -varorder domoverwdeg -findallsols -noprintsols $OUT_DIR/$LINENUM/consistent.min >> $OUT_DIR/$LINENUM/output.txt
+$PWD/../minion/bin/minion -randomseed $RANDOM -preprocess GAC -varorder domoverwdeg -restarts $OUT_DIR/$LINENUM/consistent.min >> $OUT_DIR/$LINENUM/output.txt
 
-python3 $PWD/../extractor.py "$EQ" >> $OUT_DIR/$LINENUM/output.txt
+python3 $PWD/../constraints/extractor.py "$EQ" >> $OUT_DIR/$LINENUM/output.txt
